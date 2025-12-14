@@ -1,2 +1,5 @@
 .venv/
 __pycache__/
+conda.datamining/
+.data_analysis/
+data_analysis/

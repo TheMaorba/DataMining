@@ -1,0 +1,60 @@
+# To activate this environment, use
+#
+#     $ conda activate D:\Documentos\Datamining\conda.datamining
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+
+conda install -c conda-forge r-base
+conda install -c conda-forge r-dplyr r-tidyr r-purrr r-readxl r-readr r-openxlsx r-zoo r-reshape2
+
+conda install -c conda-forge r-arrow
+📊 R → Parquet
+library(arrow)
+
+write_parquet(df, "datos.parquet")
+
+🐍 Python ← Parquet
+import pandas as pd
+
+df = pd.read_parquet("datos.parquet")
+
+conda install -c conda-forge r-base r-irkernel jupyter
+
+
+Crear entorno con los dos motores
+
+conda create -n data_analysis python=3.11 r-base r-essentials jupyter ipykernel r-irkernel
+conda activate data_analysis
+o
+conda create -p D:\Documentos\Datamining\data_analysis python=3.11 r-base r-essentials jupyter ipykernel r-irkernel -c conda-forge
+
+# Kernel de Python
+python -m ipykernel install --user --name data_analysis --display-name "Python (data_analysis)"
+
+# Kernel de R
+R -e "IRkernel::installspec(user = TRUE, name = 'data_analysis_r', displayname = 'R (data_analysis)')"
+
+conda install -c conda-forge rpy2
+
+Cargar la extensión en Jupyter
+python# En una celda de Python
+%load_ext rpy2.ipython
+
+conda install pandas numpy matplotlib seaborn openpyxl xlrd jupyter
+
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate D:\Documentos\Datamining\data_analysis
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+D:\Documentos\Datamining>
