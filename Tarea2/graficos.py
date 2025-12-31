@@ -1,6 +1,7 @@
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 
 class Graficos:
@@ -11,11 +12,18 @@ class Graficos:
         self.df2 = df2
 
 
+@staticmethod
+def crear_histograma_columna(df_sin_na, df2, age):
+    fig, (ax1, ax2) = plt.subplots(figsize=(20,5), nrows=1, ncols=2)
 
-    def crear_histograma_columna(df, df_conna, columna): 
-        plt.figure(figsize=(8,5)) 
-        sns.histplot(df[columna], bins=30, kde=True, stat="density", label="Original") 
-        sns.histplot(df_conna[columna], bins=30, kde=True, stat="density", label="Con NA") 
-        plt.title(f"Distribución de {columna}") 
-        plt.legend() 
-        plt.show()
+    fig.suptitle("Histogramas comparando las variables antes y despues del manejo de faltantes")
+    ax1.set_title(f"Histograma de la {age} (Sin manejo de faltantes)")
+    ax1.set_xlabel(age)
+    ax1.set_ylabel("Densidad de Estudiantes")
+    sns.histplot(df2[age], bins=7, kde=True, ax=ax1, edgecolor='black', color='red', stat='density')
+
+    ax2.set_title(f"Histograma de la {age} (Con manejo de faltantes)")
+    ax2.set_xlabel(age)
+    ax2.set_ylabel("Densidad de Estudiantes")
+    sns.histplot(df_sin_na[age], bins=7, kde=True, ax=ax2, edgecolor='black', color='green', stat='density')
+    plt.show()   
