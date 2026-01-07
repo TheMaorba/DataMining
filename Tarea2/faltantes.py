@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import pandas as pd
+from sklearn.impute import KNNImputer
 
 
 class GestorFaltantes:
@@ -119,3 +121,54 @@ class GestorFaltantes:
             num_nans = df[columna].isna().sum()
             porcentaje = np.round(num_nans / len(df) * 100, 2)
             print(f"{columna}: {num_nans} NaNs ({porcentaje}%)")
+
+
+
+    
+    @staticmethod
+    def knn_imputer_dataframe(df, n_neighbors=5, weights='uniform', metric='nan_euclidean'):
+        """
+        Aplica KNNImputer a un DataFrame y devuelve un nuevo DataFrame
+        con los valores imputados y los mismos nombres de columnas.
+        Solo imputa columnas numéricas, las categóricas se mantienen sin cambios.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            DataFrame con posibles NaNs
+        n_neighbors : int, opcional
+            Número de vecinos a considerar (default=5)
+        weights : str, opcional
+            'uniform' o 'distance' para ponderar vecinos
+        metric : str, opcional
+            Métrica de distancia (default='nan_euclidean')
+
+        Returns
+        -------
+        pandas.DataFrame
+            DataFrame imputado con los mismos nombres de columnas
+        """
+        # Separar columnas numéricas y categóricas
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        categorical_cols = df.select_dtypes(exclude=[np.number]).columns
+        
+        if len(numeric_cols) == 0:
+            raise ValueError("El DataFrame no contiene columnas numéricas para imputar")
+        
+        # Aplicar KNNImputer solo a columnas numéricas
+        df_numeric = df[numeric_cols].copy()
+        imputer = KNNImputer(n_neighbors=n_neighbors, weights=weights, metric=metric)
+        Xtrans = imputer.fit_transform(df_numeric)
+        
+        # Crear DataFrame imputado con columnas numéricas
+        df_numeric_imputed = pd.DataFrame(Xtrans, columns=numeric_cols, index=df.index)
+        
+        # Combinar con columnas categóricas (sin cambios)
+        if len(categorical_cols) > 0:
+            df_imputed = pd.concat([df_numeric_imputed, df[categorical_cols]], axis=1)
+            # Reordenar columnas según el orden original
+            df_imputed = df_imputed[df.columns]
+        else:
+            df_imputed = df_numeric_imputed
+        
+        return df_imputed
