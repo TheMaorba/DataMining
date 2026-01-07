@@ -27,3 +27,12 @@ def crear_histograma_columna(df_sin_na, df2, age):
     ax2.set_ylabel("Densidad de Estudiantes")
     sns.histplot(df_sin_na[age], bins=7, kde=True, ax=ax2, edgecolor='black', color='green', stat='density')
     plt.show()   
+
+
+@staticmethod
+def ver_outliers (df_KNN):
+    plt.figure(figsize=(22,6))
+    df_KNN.boxplot(grid=True,fontsize=15)
+    plt.legend(fontsize=16)
+    plt.yticks(fontsize=16)
+    plt.show()
