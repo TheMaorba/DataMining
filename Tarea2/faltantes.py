@@ -99,28 +99,39 @@ class GestorFaltantes:
     
     
     @staticmethod
-    def mostrar_nans(df):
+    def mostrar_nans(df: pd.DataFrame):
         """
-        Muestra información detallada sobre los datos faltantes en un DataFrame.
+        Muestra información detallada sobre los datos faltantes en un DataFrame,
+        con formato tabular más estético.
         
-        Parameters:
-        -----------
+        Parameters
+        ----------
         df : pandas.DataFrame
             DataFrame a analizar
         """
         total_valores = df.shape[0] * df.shape[1]
         total_nans = df.isna().sum().sum()
         porcentaje_global = np.round(total_nans / total_valores * 100, 2)
-        
-        print(f"Dataset: {len(df)} filas × {len(df.columns)} columnas = {total_valores} valores totales")
-        print(f"NaNs totales: {total_nans} ({porcentaje_global}%)")
-        print("\nNaNs por columna:")
-        print("=" * 60)
-        
+
+        print("=" * 70)
+        print(f"📊 Dataset: {len(df)} filas × {len(df.columns)} columnas")
+        print(f"🔎 Valores totales: {total_valores}")
+        print(f"❌ NaNs totales: {total_nans} ({porcentaje_global}%)")
+        print("=" * 70)
+        print("\nNaNs por columna:\n")
+
+        # Encabezado de la tabla
+        print(f"{'Columna':<25} | {'NaNs':<10} | {'% NaNs':<10}")
+        print("-" * 70)
+
+        # Filas de la tabla
         for columna in df.columns:
             num_nans = df[columna].isna().sum()
             porcentaje = np.round(num_nans / len(df) * 100, 2)
-            print(f"{columna}: {num_nans} NaNs ({porcentaje}%)")
+            print(f"{columna:<25} | {num_nans:<10} | {porcentaje:<10}")
+
+        print("=" * 70)
+
 
 
 
