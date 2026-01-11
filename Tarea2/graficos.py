@@ -99,3 +99,18 @@ class Graficos:
         plt.figure(figsize=(6,6))
         df_KNN[[columna]].boxplot(fontsize=14)
         plt.show()
+
+    
+
+    @staticmethod
+    def estadisticas(df1, columna):  
+        print(f"La media es: {df1[columna].mean():.2f}")
+        print(f"La mediana es: {df1[columna].median():.2f}")
+        print(f"La desviacion estandar es: {df1[columna].std():.2f}")
+        print(f"La varianza es: {df1[columna].var():.2f}")
+        
+        rango = df1[columna].max() - df1[columna].min()
+        print(f"El rango es igual a: {rango:.2f}")
+        
+        print(f"La asimetria es de: {df1[columna].skew():.2f}")
+        print(f"La curtosis es de: {df1[columna].kurtosis():.2f}")
