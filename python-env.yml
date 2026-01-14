@@ -1,0 +1,88 @@
+name: pyconda
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # ==================================================
+  # Núcleo
+  # ==================================================
+  - python=3.11
+  
+  # ==================================================
+  # PYTHON — Análisis de datos
+  # ==================================================
+  - numpy
+  - pandas
+  - scipy
+  - statsmodels
+  - scikit-learn
+  
+  # ==================================================
+  # PYTHON — Visualización
+  # ==================================================
+  - matplotlib
+  - seaborn
+  - plotly
+  - altair
+  
+  # ==================================================
+  # PYTHON — Machine Learning avanzado
+  # ==================================================
+  - xgboost
+  - lightgbm
+  - catboost
+  
+  # ==================================================
+  # PYTHON — Entrada por teclado / utilidades
+  # ==================================================
+  - click
+  - rich
+  - tqdm
+  
+  # ==================================================
+  # PYTHON — SQL
+  # ==================================================
+  - sqlalchemy
+  - psycopg2
+  - pymysql
+  
+  # ==================================================
+  # PYTHON — Imágenes
+  # ==================================================
+  - pillow
+  - scikit-image
+  - py-opencv
+  
+  # ==================================================
+  # PYTHON — Jupyter / notebooks / presentaciones
+  # ==================================================
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - nbconvert
+  - rise
+  - jupyter_contrib_nbextensions
+  - pandoc
+  
+  # ==================================================
+  # PYTHON — Exportar a HTML / PDF / Reveal.js
+  # ==================================================
+  - weasyprint
+  - reportlab
+  - beautifulsoup4
+  - lxml
+  
+  # ==================================================
+  # QUARTO (para documentos y reportes)
+  # ==================================================
+  - quarto
+  
+  # ==================================================
+  # pip (solo lo que NO está en conda)
+  # ==================================================
+  - pip
+  - pip:
+      - kaleido
+      - imbalanced-learn
+      - optuna
+      - nbconvert[webpdf]

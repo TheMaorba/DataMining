@@ -1,0 +1,143 @@
+name: ryp
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # ==================================================
+  # Núcleo
+  # ==================================================
+  - python=3.11
+  - r-base=4.3.3
+  
+  # ==================================================
+  # PYTHON — Análisis de datos
+  # ==================================================
+  - numpy
+  - pandas
+  - scipy
+  - statsmodels
+  - scikit-learn
+  
+  # ==================================================
+  # PYTHON — Visualización
+  # ==================================================
+  - matplotlib
+  - seaborn
+  - plotly
+  - altair
+  
+  # ==================================================
+  # PYTHON — Machine Learning avanzado
+  # ==================================================
+  - xgboost
+  - lightgbm
+  - catboost
+  
+  # ==================================================
+  # PYTHON — Entrada por teclado / utilidades
+  # ==================================================
+  - click
+  - rich
+  - tqdm
+  
+  # ==================================================
+  # PYTHON — SQL
+  # ==================================================
+  - sqlalchemy
+  - psycopg2
+  - pymysql
+  
+  # ==================================================
+  # PYTHON — Imágenes
+  # ==================================================
+  - pillow
+  - scikit-image
+  - py-opencv
+  
+  # ==================================================
+  # PYTHON — Jupyter / notebooks / presentaciones
+  # ==================================================
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - nbconvert
+  - rise                    # ← Para presentaciones interactivas
+  - jupyter_contrib_nbextensions  # ← Extensiones útiles para Jupyter
+  - pandoc                  # ← Necesario para exportar a múltiples formatos
+  - texlive-core            # ← Para exportar a PDF (opcional pero recomendado)
+  
+  # ==================================================
+  # PYTHON — Exportar a HTML / PDF / Reveal.js
+  # ==================================================
+  - weasyprint
+  - reportlab
+  - beautifulsoup4          # ← Útil para procesar HTML
+  - lxml                    # ← Parser para HTML/XML
+  
+  # ==================================================
+  # R — Análisis de datos
+  # ==================================================
+  - r-tidyverse
+  - r-data.table
+  - r-lubridate
+  - r-readr
+  - r-readxl
+  - r-openxlsx
+  
+  # ==================================================
+  # R — Visualización
+  # ==================================================
+  - r-ggplot2
+  - r-plotly
+  - r-shiny
+  - r-shinythemes
+  
+  # ==================================================
+  # R — Machine Learning / Modelado
+  # ==================================================
+  - r-caret
+  - r-randomforest
+  - r-e1071
+  - r-xgboost
+  
+  # ==================================================
+  # R — SQL
+  # ==================================================
+  - r-dbi
+  - r-rsqlite
+  - r-rpostgres
+  - r-odbc
+  
+  # ==================================================
+  # R — Imágenes
+  # ==================================================
+  - r-magick
+  - r-imager
+  
+  # ==================================================
+  # R — HTML / PDF / Reportes
+  # ==================================================
+  - r-rmarkdown
+  - r-htmltools
+  - r-knitr
+  - r-pagedown
+  
+  # ==================================================
+  # QUARTO (R + Python)
+  # ==================================================
+  - quarto
+  
+  # ==================================================
+  # R + Python integración
+  # ==================================================
+  - r-reticulate
+  
+  # ==================================================
+  # pip (solo lo que NO está en conda)
+  # ==================================================
+  - pip
+  - pip:
+      - kaleido
+      - imbalanced-learn
+      - optuna
+      - nbconvert[webpdf]   # ← Soporte adicional para exportar a PDF vía web
