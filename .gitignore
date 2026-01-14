@@ -5,3 +5,9 @@ conda.datamining/
 data_analysis/
 .Rproj.user
 .idea/
+.anaconda_projects/
+.ipynb_checkpoints/
+.virtual_documents/
+Tarea2/anaconda_projects/db/project_filebrowser.db
+.Rhistory/
+.Rhistory
