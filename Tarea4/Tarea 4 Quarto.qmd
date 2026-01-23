@@ -1,0 +1,281 @@
+---
+title: "Tarea 4"
+author: "Mateo Orozco Baldovino"
+format: html
+editor: visual
+---
+
+## Importando datos
+
+```{r}
+library(readr)
+bank <- read_delim("D:/Documentos/Especialidad/DataMining/Tarea4/dataset4/bank.csv", delim = ";", 
+    escape_double = FALSE, trim_ws = TRUE)
+# Imprimir 5 primeras filas
+head(bank, 5)
+```
+## Imprimir tipo de datos
+
+```{r}
+str(bank)
+```
+# K Means
+
+## Grafico de las variables
+
+
+```{r}
+library(dplyr)
+library(GGally)
+library(ggplot2)
+
+bank_num <- bank %>% select(where(is.numeric))
+
+GGally::ggpairs(
+  data = bind_cols(bank_num, y = factor(bank$y)),
+  columns = names(bank_num),
+  mapping = ggplot2::aes(color = y, alpha = 0.35)
+)
+
+```
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# X = data.drop(['CustomerID','Gender'], axis=1)  (en R)
+# Para bank: quita variables no numéricas y/o usa dummies; para elbow básico, usa numéricas:
+X <- bank %>%
+  select(where(is.numeric))  # ajusta si necesitas otras columnas
+
+# (Opcional) escalar, recomendado para kmeans
+X_sc <- scale(X)
+
+set.seed(123)
+k_values <- 1:10
+
+wss <- sapply(k_values, function(k) {
+  kmeans(X_sc, centers = k, nstart = 10)$tot.withinss
+})
+
+elbow_df <- data.frame(k = k_values, wss = wss)
+
+ggplot(elbow_df, aes(x = k, y = wss)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Searching for Elbow",
+    x = "Clusters",
+    y = "WSS (tot.withinss)"
+  ) +
+  theme_minimal()
+
+```
+## KMeans con 3 clusters y scatter plot
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# 1) Define X0 (datos para kmeans)
+X0 <- bank %>% select(where(is.numeric))
+X0_sc <- scale(X0)
+
+# 2) KMeans con 3 clusters
+set.seed(123)
+km3 <- kmeans(X0_sc, centers = 3, nstart = 10)
+
+# 3) Agregar labels al dataset (como Labels_k3)
+bank_plot <- bank %>%
+  mutate(Labels_k3 = factor(km3$cluster))
+
+# 4) Scatter (cambia x/y por las columnas que quieres)
+ggplot(bank_plot, aes(x = balance, y = duration, color = Labels_k3)) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  labs(title = "KMeans with 3 Clusters", x = "balance", y = "duration", color = "Cluster") +
+  theme_minimal()
+
+```
+
+## KMeans con 4 clusters y scatter plot
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Datos para kmeans (igual que tu X0)
+X0 <- bank %>% select(where(is.numeric))
+X0_sc <- scale(X0)
+
+# KMeans con 4 clusters
+set.seed(123)
+km4 <- kmeans(X0_sc, centers = 4, nstart = 10)
+
+# Agregar labels al data frame para graficar
+bank_plot <- bank %>%
+  mutate(Labels_k4 = factor(km4$cluster))
+
+# Scatter (elige tus ejes)
+ggplot(bank_plot, aes(x = balance, y = duration, color = Labels_k4)) +
+  geom_point(size = 2.5, alpha = 0.85) +
+  labs(
+    title = "KMeans with 4 Clusters",
+    x = "balance",
+    y = "duration",
+    color = "Cluster"
+  ) +
+  theme_minimal()
+
+```
+
+## KMeans con 5 clusters y scatter plot
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# X0 (datos para kmeans)
+X0 <- bank %>% select(where(is.numeric))
+X0_sc <- scale(X0)
+
+# 5 clusters
+set.seed(123)
+km5 <- kmeans(X0_sc, centers = 5, nstart = 10)
+
+# Guardar labels (equivalente a Labels_k5)
+bank_plot <- bank %>%
+  mutate(Labels_k5 = factor(km5$cluster))
+
+# Scatter: cambia los ejes por las 2 variables que quieras graficar
+ggplot(bank_plot, aes(x = balance, y = duration, color = Labels_k5)) +
+  geom_point(size = 2.5, alpha = 0.85) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "KMeans with 5 Clusters",
+    x = "balance",
+    y = "duration",
+    color = "Cluster"
+  ) +
+  theme_minimal()
+```
+## Comparación de los 3 scatter plots
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+
+# Datos para kmeans
+X0 <- bank %>% select(where(is.numeric))
+X0_sc <- scale(X0)
+
+set.seed(123)
+km3 <- kmeans(X0_sc, centers = 3, nstart = 10)
+km4 <- kmeans(X0_sc, centers = 4, nstart = 10)
+km5 <- kmeans(X0_sc, centers = 5, nstart = 10)
+
+bank_k3 <- bank %>% mutate(Labels = factor(km3$cluster))
+bank_k4 <- bank %>% mutate(Labels = factor(km4$cluster))
+bank_k5 <- bank %>% mutate(Labels = factor(km5$cluster))
+
+p3 <- ggplot(bank_k3, aes(x = balance, y = duration, color = Labels)) +
+  geom_point(size = 2.5, alpha = 0.85) +
+  scale_color_brewer(palette = "Set2") +
+  labs(title = "KMeans with 3 Clusters", x = "balance", y = "duration", color = "Cluster") +
+  theme_minimal()
+
+p4 <- ggplot(bank_k4, aes(x = balance, y = duration, color = Labels)) +
+  geom_point(size = 2.5, alpha = 0.85) +
+  scale_color_brewer(palette = "Set2") +
+  labs(title = "KMeans with 4 Clusters", x = "balance", y = "duration", color = "Cluster") +
+  theme_minimal()
+
+p5 <- ggplot(bank_k5, aes(x = balance, y = duration, color = Labels)) +
+  geom_point(size = 2.5, alpha = 0.85) +
+  scale_color_brewer(palette = "Set2") +
+  labs(title = "KMeans with 5 Clusters", x = "balance", y = "duration", color = "Cluster") +
+  theme_minimal()
+
+(p3 | p4 | p5) + plot_layout(guides = "collect")
+
+```
+## Beeswarm plots para KMeans con 5 clusters
+
+```{r}
+library(ggbeeswarm)
+library(patchwork)
+
+# 5) Beeswarm balance vs cluster (tu "income" aquí es balance)
+p_balance <- ggplot(bank_k5, aes(x = Labels_k5, y = balance, color = Labels_k5)) +
+  ggbeeswarm::geom_beeswarm(cex = 0.8, size = 1.8) +   # beeswarm [web:31]
+  labs(title = "Clusters según balance", x = "Cluster", y = "balance") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# 6) Beeswarm duration vs cluster (tu "score" aquí es duration)
+p_duration <- ggplot(bank_k5, aes(x = Labels_k5, y = duration, color = Labels_k5)) +
+  ggbeeswarm::geom_beeswarm(cex = 0.8, size = 1.8) +   # beeswarm [web:31]
+  labs(title = "Clusters según duration", x = "Cluster", y = "duration") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# 7) Mostrar ambos gráficos lado a lado con patchwork [web:42]
+p_balance | p_duration
+```
+## Scatter plot de balance vs Labels_k5
+
+
+```{r}
+library(ggplot2)
+
+# Si Labels_k5 ya existe en tu data frame (por ejemplo bank_k5):
+ggplot(bank_k5, aes(x = Labels_k5, y = balance)) +
+  geom_point(size = 4, alpha = 0.8) +
+  labs(x = "Labels_k5", y = "balance") +
+  theme_minimal()
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(ggbeeswarm)
+library(patchwork)
+
+# 1) Crear datos una sola vez (evitar duplicación)
+X0 <- bank %>% select(where(is.numeric))
+X0_sc <- scale(X0)
+
+set.seed(123)
+km5 <- kmeans(X0_sc, centers = 5, nstart = 10)
+
+bank_k5 <- bank %>%
+  mutate(Labels_k5 = factor(km5$cluster))
+
+# 2) OPTIMIZACIÓN CRÍTICA: Usar muestra si tienes muchas filas
+n_rows <- nrow(bank_k5)
+
+if (n_rows > 5000) {
+  # Para datasets grandes, usar muestra aleatoria
+  set.seed(123)
+  bank_plot <- bank_k5 %>% slice_sample(n = 5000)
+  message("Dataset grande detectado. Usando muestra de 5000 filas para visualización.")
+} else {
+  bank_plot <- bank_k5
+}
+
+# 3) Crear función para evitar código repetido
+create_swarmplot <- function(data, y_var, title) {
+  ggplot(data, aes(x = Labels_k5, y = .data[[y_var]])) +
+    geom_beeswarm(size = 1.5, cex = 0.8, alpha = 0.6) +  # alpha añade transparencia
+    labs(title = title, x = "Cluster", y = y_var) +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 11))
+}
+
+# 4) Generar gráficos usando la función
+p_balance <- create_swarmplot(bank_plot, "balance", "Labels According to Balance")
+p_duration <- create_swarmplot(bank_plot, "duration", "Labels According to Duration")
+
+# 5) Mostrar lado a lado
+p_balance | p_duration
+```
+

@@ -16,7 +16,18 @@ Link usados
 
 https://github.com/sierraporta/data_science_course_UTB/blob/main/Clase2/linear_regresion.ipynb
 
+
+Tarea 3
+
 https://github.com/sierraporta/data_science_course_UTB/blob/main/Clase3/distributions_data.ipynb
+
+Tarea 4
+
+https://github.com/sierraporta/data_science_course_UTB/blob/main/Clase5/Clustering_Machine_Learning.ipynb
+
+
+
+
 
 https://towardsdatascience.com/hypothesis-testing-with-python-step-by-step-hands-on-tutorial-with-practical-examples-e805975ea96e/
 
