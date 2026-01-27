@@ -1,0 +1,7 @@
+Para poder aplicar PCA (Analisis de Componentes Principales) a la base de datos iris, primero debemos estandarizar las caracteristicas numericas para que todas tengan la misma escala. Luego, calculamos la matriz de covarianza y sus valores y vectores propios. Finalmente, seleccionamos los componentes principales y proyectamos los datos originales en el nuevo espacio reducido.
+Osea normalizamos los datos.
+
+
+Como se yo cuando mis datos estan normalizados?
+Profe una pregunta, es el metodo del codo la mejor manera para determinar el numero optimo de componentes principales en PCA o que hay de eso de que el numero de componentes
+principales debe explicar un cierto porcentaje de la varianza total? alrededor del 95%?
