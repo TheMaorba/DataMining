@@ -31,6 +31,7 @@ dependencies:
   - xgboost
   - lightgbm
   - catboost
+  - bioinfokit
   
   # ==================================================
   # PYTHON — Entrada por teclado / utilidades
