@@ -1,0 +1,38 @@
+name: etarea6
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+# Core data science
+  - numpy
+  - pandas
+  - scipy
+
+  # Machine Learning
+  - scikit-learn=1.8.0 #Preferiblemente la version 1.6.1 que es la que usa colab
+  - scikit-learn-extra
+  - xgboost
+  - lightgbm
+  - catboost
+  # - bioinfokit (no está en conda-forge)
+  - statsmodels
+  - scikit-image
+  - opencv # Este paquete se llama así en conda-forge, no py-opencv que es en pip
+  - hdbscan
+
+  # Visualización
+  - matplotlib
+  - seaborn
+  - plotly
+
+  # Notebooks y presentaciones
+  - notebook
+  - nbconvert
+  - jupyterlab
+  - ipykernel
+
+  # Utilidades
+  - pip
+  - pip:
+      - rise  # Se instala con pip por conflictos en conda-forge (Windows + py3.11)

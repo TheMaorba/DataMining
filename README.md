@@ -62,4 +62,7 @@ https://www.kaggle.com/datasets/suvidyasonawane/student-academic-placement-perfo
 
 https://archive.ics.uci.edu/dataset/29/computer+hardware
 
+
+Pagina para ver graficos utilizar y como hacerlos
+
 https://datavizcatalogue.com/ES/
