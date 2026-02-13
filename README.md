@@ -2,6 +2,8 @@
 
 En este repositorio se añade la informacion sobre las actividades de data mining
 
+Para estos proyectos se estan utilizando entornos de anaconda con python 3.11
+
 Las guias para las actividades se pueden encontrar en los siguientes links
 
 Tarea 1 

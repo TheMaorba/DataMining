@@ -1,0 +1,44 @@
+COMANDOS DE INSTALACIÓN PARA TODAS LAS LIBRERÍAS - DATA MINING
+===============================================================================
+
+
+INSTALACIÓN MANUAL UNA POR UNA CON ANACONDA ===
+
+Instalar cada librería individualmente:
+
+   conda install numpy
+   conda install matplotlib
+   conda install -c conda-forge opencv
+   conda install scikit-image
+   conda install ipykernel
+   conda install nbconvert
+   conda install scipy
+   conda install statsmodels
+   conda install scikit-learn
+   conda install seaborn
+   conda install pandas
+
+Librerías que requieren pip (no están en conda o funcionan mejor con pip):
+   
+   pip install fitter
+   pip install scikit-learn-extra
+
+
+=== INSTALACIÓN CON PIP (si no usas Anaconda) ===
+
+
+   pip install numpy
+   pip install matplotlib
+   pip install opencv-python
+   pip install scikit-image
+   pip install ipykernel
+   pip install nbconvert
+   pip install scipy
+   pip install statsmodels
+   pip install scikit-learn
+   pip install seaborn
+   pip install fitter
+   pip install scikit-learn-extra
+   pip install pandas
+
+
